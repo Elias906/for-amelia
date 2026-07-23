@@ -218,6 +218,31 @@
     100%{ top:32px; opacity:0; }
   }
 
+  /* ---------- GREETING ---------- */
+  .greeting-section{
+    max-width:520px;
+    margin:0 auto;
+    padding:3rem 6vw 1rem;
+    text-align:center;
+  }
+
+  .greeting-title{
+    font-family:'Newsreader', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:clamp(1.4rem, 4vw, 1.8rem);
+    color:var(--dusk);
+    margin-bottom:0.7rem;
+  }
+
+  .greeting-note{
+    font-family:'Work Sans', sans-serif;
+    font-size:0.98rem;
+    line-height:1.6;
+    color:var(--ink);
+    opacity:0.85;
+  }
+
   /* ---------- PHOTO ---------- */
   .photo-section{
     padding:5rem 6vw 1rem;
@@ -627,6 +652,11 @@
     <div class="scroll-cue" aria-hidden="true"></div>
   </section>
 
+  <section class="greeting-section">
+    <p class="greeting-title" id="greeting-title">&nbsp;</p>
+    <p class="greeting-note" id="greeting-note">&nbsp;</p>
+  </section>
+
   <section class="photo-section">
     <div class="portrait-group">
       <div class="speech-bubble him" id="bubble-him"></div>
@@ -637,6 +667,8 @@
           <img src="elias3.jpg" alt="Elías">
           <img src="elias4.jpg" alt="Elías">
           <img src="elias6.jpg" alt="Elías">
+        <img src="elias7.jpg" alt="Elías">
+        <img src="elias8.jpg" alt="Elías">
         </div>
         <div class="carousel-dots" id="dots-him" aria-hidden="true"></div>
         <figcaption data-i18n="photoCaptionHim">Elías · Lima</figcaption>
@@ -816,6 +848,12 @@
       chatHer2: "kamu bikin aku bahagia",
       chatHim2: "aku lebih bahagia lagi karena kamu bahagia",
       chatMerged: "Ngobrol denganmu selalu terasa nyaman.",
+      greetMorningTitle: "Selamat pagi, Amelia!",
+      greetMorningNote: "Semoga kamu sudah sarapan dengan baik pagi ini.",
+      greetAfternoonTitle: "Selamat siang, Amelia!",
+      greetAfternoonNote: "Semoga kamu sudah makan siang dengan enak.",
+      greetNightTitle: "Selamat malam, Amelia.",
+      greetNightNote: "Semoga kamu sudah makan malam — aku tahu kadang kamu kurang semangat untuk makan, tapi aku ingin kamu selalu menjaga diri dan tetap kuat.",
       authors: {
         elias: {
           p1: "Amelia,",
@@ -854,6 +892,12 @@
       chatHer2: "you make me happy",
       chatHim2: "I am happier because you are happy",
       chatMerged: "I feel comfortable talking with you all the time.",
+      greetMorningTitle: "Good morning, Amelia!",
+      greetMorningNote: "I hope you had a good breakfast this morning.",
+      greetAfternoonTitle: "Good afternoon, Amelia!",
+      greetAfternoonNote: "I hope you had a good lunch.",
+      greetNightTitle: "Good evening, Amelia.",
+      greetNightNote: "I hope you've had dinner — I know you don't always feel like eating, but I want you to take care of yourself and stay strong always.",
       authors: {
         elias: {
           p1: "Amelia,",
@@ -892,6 +936,12 @@
       chatHer2: "me haces feliz",
       chatHim2: "yo soy más feliz porque tú eres feliz",
       chatMerged: "Hablar contigo siempre se siente así de cómodo.",
+      greetMorningTitle: "¡Buenos días, Amelia!",
+      greetMorningNote: "Espero que hayas desayunado bien esta mañana.",
+      greetAfternoonTitle: "¡Buenas tardes, Amelia!",
+      greetAfternoonNote: "Espero que hayas almorzado rico.",
+      greetNightTitle: "Buenas noches, Amelia.",
+      greetNightNote: "Espero que hayas cenado — sé que a veces no te dan muchas ganas de comer, pero quiero que te cuides y te mantengas fuerte siempre.",
       authors: {
         elias: {
           p1: "Amelia,",
@@ -945,6 +995,23 @@
       btn.setAttribute("aria-pressed", btn.getAttribute("data-lang") === lang ? "true" : "false");
     });
     renderLetter();
+    renderGreeting();
+  }
+
+  function renderGreeting(){
+    const dict = translations[currentLang];
+    if (!dict) return;
+    const hour = new Date().getHours();
+    let titleKey, noteKey;
+    if (hour >= 5 && hour < 12){
+      titleKey = "greetMorningTitle"; noteKey = "greetMorningNote";
+    } else if (hour >= 12 && hour < 18){
+      titleKey = "greetAfternoonTitle"; noteKey = "greetAfternoonNote";
+    } else {
+      titleKey = "greetNightTitle"; noteKey = "greetNightNote";
+    }
+    document.getElementById("greeting-title").textContent = dict[titleKey];
+    document.getElementById("greeting-note").textContent = dict[noteKey];
   }
 
   function setAuthor(author){
