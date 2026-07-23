@@ -598,6 +598,163 @@
     .flower-icon{ animation:none; }
   }
 
+  /* ---------- BIRTHDAYS ---------- */
+  .birthdays-section{
+    padding:1rem 6vw 5rem;
+    text-align:center;
+  }
+
+  .birthdays-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.24em;
+    text-transform:uppercase;
+    color:var(--dusk);
+    opacity:0.7;
+    margin-bottom:2rem;
+  }
+
+  .birthdays-row{
+    display:flex;
+    justify-content:center;
+    gap:clamp(1.5rem, 8vw, 4rem);
+    flex-wrap:wrap;
+  }
+
+  .birthday-card{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:0.5rem;
+  }
+
+  .birthday-icon{
+    width:76px;
+    height:76px;
+  }
+
+  .birthday-flame{
+    transform-origin:center;
+    animation:flicker 1.8s ease-in-out infinite;
+  }
+
+  @keyframes flicker{
+    0%, 100%{ transform:scaleY(1) scaleX(1); opacity:1; }
+    50%{ transform:scaleY(1.15) scaleX(0.9); opacity:0.85; }
+  }
+
+  .birthday-name{
+    font-family:'Newsreader', serif;
+    font-style:italic;
+    font-size:1.05rem;
+    color:var(--ember);
+    margin-top:0.3rem;
+  }
+
+  .birthday-date{
+    font-family:'Work Sans', sans-serif;
+    font-size:0.88rem;
+    color:var(--ink);
+    opacity:0.85;
+  }
+
+  .birthday-countdown{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.05em;
+    color:var(--dusk);
+    opacity:0.65;
+    margin-top:0.1rem;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .birthday-flame{ animation:none; }
+  }
+
+  /* ---------- LIKES ---------- */
+  .likes-section{
+    padding:1rem 6vw 5rem;
+    text-align:center;
+    max-width:640px;
+    margin:0 auto;
+  }
+
+  .likes-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.24em;
+    text-transform:uppercase;
+    color:var(--dusk);
+    opacity:0.7;
+    margin-bottom:2.2rem;
+  }
+
+  .likes-columns{
+    display:flex;
+    justify-content:center;
+    gap:clamp(1.5rem, 6vw, 4rem);
+    flex-wrap:wrap;
+  }
+
+  .likes-column{ flex:1 1 220px; max-width:260px; }
+
+  .likes-name{
+    font-family:'Newsreader', serif;
+    font-style:italic;
+    font-size:1.1rem;
+    color:var(--ember);
+    margin-bottom:1.2rem;
+  }
+
+  .likes-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:1.2rem 0.8rem;
+  }
+
+  .like-item{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:0.4rem;
+    opacity:0;
+    transform:translateY(14px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .like-item.visible{ opacity:1; transform:translateY(0); }
+
+  .like-icon{
+    width:52px;
+    height:52px;
+    animation:bob 4.5s ease-in-out infinite;
+  }
+
+  .like-item:nth-child(2n) .like-icon{ animation-delay:0.7s; }
+  .like-item:nth-child(3n) .like-icon{ animation-delay:1.3s; }
+
+  @keyframes bob{
+    0%, 100%{ transform:translateY(0); }
+    50%{ transform:translateY(-5px); }
+  }
+
+  .like-item span{
+    font-family:'Work Sans', sans-serif;
+    font-size:0.82rem;
+    color:var(--ink);
+  }
+
+  .like-item small{
+    display:block;
+    font-size:0.65rem;
+    color:var(--dusk);
+    opacity:0.6;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .like-icon{ animation:none; }
+  }
+
   /* ---------- FOOTER ---------- */
   footer{
     text-align:center;
@@ -705,6 +862,44 @@
     </div>
   </section>
 
+  <section class="birthdays-section">
+    <p class="birthdays-label" data-i18n="birthdaysLabel">Nuestros cumpleaños</p>
+    <div class="birthdays-row">
+      <div class="birthday-card">
+        <svg class="birthday-icon" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14,44 L46,44 L43,58 C43,60 17,60 17,58 Z" fill="var(--ember)"/>
+          <rect x="14" y="34" width="32" height="10" fill="var(--dawnrose)"/>
+          <path d="M12,34 C12,34 16,28 20,34 C24,28 28,34 28,34 C28,34 32,28 36,34 C40,28 44,34 44,34 C44,34 48,30 48,34 L48,38 L12,38 Z" fill="#FFF9F1"/>
+          <rect x="20" y="20" width="2.4" height="12" fill="var(--dawngold)"/>
+          <rect x="29" y="16" width="2.4" height="16" fill="var(--ember)"/>
+          <rect x="38" y="20" width="2.4" height="12" fill="var(--dawngold)"/>
+          <path class="birthday-flame" d="M21.2,20 C21.2,17 19,16 19,13 C19,16 23.4,17 21.2,20 Z" fill="var(--ember)"/>
+          <path class="birthday-flame" d="M30.2,16 C30.2,13 28,12 28,9 C28,12 32.4,13 30.2,16 Z" fill="var(--dawngold)"/>
+          <path class="birthday-flame" d="M39.2,20 C39.2,17 37,16 37,13 C37,16 41.4,17 39.2,20 Z" fill="var(--ember)"/>
+        </svg>
+        <p class="birthday-name">Elías</p>
+        <p class="birthday-date" data-i18n="birthdayElias">16 de octubre</p>
+        <p class="birthday-countdown" id="countdown-elias">—</p>
+      </div>
+      <div class="birthday-card">
+        <svg class="birthday-icon" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14,44 L46,44 L43,58 C43,60 17,60 17,58 Z" fill="var(--dawnrose)"/>
+          <rect x="14" y="34" width="32" height="10" fill="var(--ember)"/>
+          <path d="M12,34 C12,34 16,28 20,34 C24,28 28,34 28,34 C28,34 32,28 36,34 C40,28 44,34 44,34 C44,34 48,30 48,34 L48,38 L12,38 Z" fill="#FFF9F1"/>
+          <rect x="20" y="20" width="2.4" height="12" fill="var(--dawngold)"/>
+          <rect x="29" y="16" width="2.4" height="16" fill="var(--ember)"/>
+          <rect x="38" y="20" width="2.4" height="12" fill="var(--dawngold)"/>
+          <path class="birthday-flame" d="M21.2,20 C21.2,17 19,16 19,13 C19,16 23.4,17 21.2,20 Z" fill="var(--ember)"/>
+          <path class="birthday-flame" d="M30.2,16 C30.2,13 28,12 28,9 C28,12 32.4,13 30.2,16 Z" fill="var(--dawngold)"/>
+          <path class="birthday-flame" d="M39.2,20 C39.2,17 37,16 37,13 C37,16 41.4,17 39.2,20 Z" fill="var(--ember)"/>
+        </svg>
+        <p class="birthday-name">Amelia</p>
+        <p class="birthday-date" data-i18n="birthdayAmelia">22 de marzo</p>
+        <p class="birthday-countdown" id="countdown-amelia">—</p>
+      </div>
+    </div>
+  </section>
+
   <section class="letter" id="letter">
     <div class="author-switch" role="group" aria-label="Elías / Amelia">
       <button type="button" data-author="elias" aria-pressed="true">Elías</button>
@@ -723,22 +918,15 @@
     <div class="flowers-row">
       <div class="flower-card">
         <svg class="flower-icon" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg">
-          <path d="M60,58 C56,88 64,118 58,150" fill="none" stroke="var(--sage-dark)" stroke-width="3" stroke-linecap="round"/>
-          <path d="M60,112 C74,109 85,118 79,131 C68,129 58,123 60,112 Z" fill="var(--sage)"/>
-          <path d="M60,132 C48,131 40,140 47,151 C56,148 62,142 60,132 Z" fill="var(--sage-dark)"/>
-          <g>
-            <path transform="rotate(0 60 55)"   d="M60,55 C48,42 40,18 60,2  C80,18 72,42 60,55 Z" fill="var(--dawnrose)"/>
-            <path transform="rotate(72 60 55)"  d="M60,55 C48,42 40,18 60,2  C80,18 72,42 60,55 Z" fill="var(--dawnrose)"/>
-            <path transform="rotate(144 60 55)" d="M60,55 C48,42 40,18 60,2  C80,18 72,42 60,55 Z" fill="var(--dawnrose)"/>
-            <path transform="rotate(216 60 55)" d="M60,55 C48,42 40,18 60,2  C80,18 72,42 60,55 Z" fill="var(--dawnrose)"/>
-            <path transform="rotate(288 60 55)" d="M60,55 C48,42 40,18 60,2  C80,18 72,42 60,55 Z" fill="var(--dawnrose)"/>
-            <path transform="rotate(36 60 55)"  d="M60,55 C52,46 47,30 60,16 C73,30 68,46 60,55 Z" fill="var(--ember)"/>
-            <path transform="rotate(108 60 55)" d="M60,55 C52,46 47,30 60,16 C73,30 68,46 60,55 Z" fill="var(--ember)"/>
-            <path transform="rotate(180 60 55)" d="M60,55 C52,46 47,30 60,16 C73,30 68,46 60,55 Z" fill="var(--ember)"/>
-            <path transform="rotate(252 60 55)" d="M60,55 C52,46 47,30 60,16 C73,30 68,46 60,55 Z" fill="var(--ember)"/>
-            <path transform="rotate(324 60 55)" d="M60,55 C52,46 47,30 60,16 C73,30 68,46 60,55 Z" fill="var(--ember)"/>
-            <circle cx="60" cy="50" r="6" fill="var(--dawngold)"/>
-          </g>
+          <path d="M60,78 C56,102 64,126 58,150" fill="none" stroke="var(--sage-dark)" stroke-width="3" stroke-linecap="round"/>
+          <path d="M60,120 C74,117 85,126 79,138 C68,136 58,131 60,120 Z" fill="var(--sage)"/>
+          <path d="M60,76 C54,80 49,85 52,91 C56,87 60,83 60,76 Z" fill="var(--sage)" opacity="0.85"/>
+          <path d="M60,76 C66,80 71,85 68,91 C64,87 60,83 60,76 Z" fill="var(--sage-dark)" opacity="0.85"/>
+          <path d="M60,78 C36,74 28,50 38,28 C46,12 58,10 60,10 C62,10 74,12 82,28 C92,50 84,74 60,78 Z" fill="var(--dawnrose)"/>
+          <path d="M60,74 C46,72 36,58 40,42 C43,30 52,26 58,30 C64,34 62,46 54,50 C48,53 50,62 60,66 Z" fill="#EE8264"/>
+          <path d="M60,74 C74,72 84,58 80,42 C77,30 68,26 62,30 C56,34 58,46 66,50 C72,53 70,62 60,66 Z" fill="var(--ember)"/>
+          <path d="M60,70 C52,68 47,60 50,52 C52,46 58,44 60,46 C62,44 68,46 70,52 C73,60 68,68 60,70 Z" fill="#D94E30"/>
+          <path d="M60,46 C58,52 58,58 60,64" fill="none" stroke="#B33A22" stroke-width="1.4" stroke-linecap="round" opacity="0.6"/>
         </svg>
         <p class="flower-name" data-i18n="flowerRose">Rosas</p>
       </div>
@@ -762,6 +950,128 @@
           <circle cx="60" cy="71" r="2.2" fill="var(--dawngold)"/>
         </svg>
         <p class="flower-name" data-i18n="flowerEdelweiss">Edelweiss</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="likes-section">
+    <p class="likes-label" data-i18n="likesLabel">Lo que nos gusta</p>
+    <div class="likes-columns">
+      <div class="likes-column">
+        <p class="likes-name">Elías</p>
+        <div class="likes-grid">
+          <div class="like-item">
+            <svg class="like-icon" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+              <rect x="8" y="18" width="44" height="28" rx="3" fill="var(--dusk)"/>
+              <rect x="10" y="20" width="40" height="20" fill="var(--paper)"/>
+              <line x1="16.6" y1="20" x2="16.6" y2="40" stroke="var(--dusk)" stroke-width="0.8"/>
+              <line x1="23.2" y1="20" x2="23.2" y2="40" stroke="var(--dusk)" stroke-width="0.8"/>
+              <line x1="29.8" y1="20" x2="29.8" y2="40" stroke="var(--dusk)" stroke-width="0.8"/>
+              <line x1="36.4" y1="20" x2="36.4" y2="40" stroke="var(--dusk)" stroke-width="0.8"/>
+              <line x1="43" y1="20" x2="43" y2="40" stroke="var(--dusk)" stroke-width="0.8"/>
+              <rect x="14" y="20" width="4" height="12" fill="var(--ink)"/>
+              <rect x="25" y="20" width="4" height="12" fill="var(--ink)"/>
+              <rect x="36" y="20" width="4" height="12" fill="var(--ink)"/>
+            </svg>
+            <span data-i18n="likePiano">Piano</span>
+          </div>
+          <div class="like-item">
+            <svg class="like-icon" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14,32 C14,18 44,18 44,32" fill="none" stroke="var(--ember)" stroke-width="4" stroke-linecap="round"/>
+              <rect x="9" y="30" width="9" height="16" rx="4" fill="var(--ember)"/>
+              <rect x="40" y="30" width="9" height="16" rx="4" fill="var(--dawnrose)"/>
+            </svg>
+            <span data-i18n="likeMusic">Escuchar música</span>
+          </div>
+          <div class="like-item">
+            <svg class="like-icon" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8,30 C18,16 42,16 52,30 C42,42 18,42 8,30 Z" fill="var(--paper)" stroke="var(--dusk)" stroke-width="2"/>
+              <circle cx="30" cy="30" r="9" fill="var(--ember)"/>
+              <circle cx="30" cy="30" r="4.2" fill="var(--ink)"/>
+              <circle cx="27" cy="26" r="2.6" fill="#FFF9F1"/>
+              <path d="M12,24 C18,19 24,17 30,17" fill="none" stroke="var(--dusk)" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span data-i18n="likeAnime">Ver anime</span>
+            <small data-i18n="likeSharedNote">(los dos)</small>
+          </div>
+          <div class="like-item">
+            <svg class="like-icon" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+              <rect x="12" y="30" width="7" height="16" fill="var(--dawnrose)"/>
+              <rect x="24" y="22" width="7" height="24" fill="var(--ember)"/>
+              <rect x="36" y="14" width="7" height="32" fill="var(--dusk)"/>
+              <path d="M10,20 L20,10 L28,16 L44,4" fill="none" stroke="var(--sage)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M38,4 L44,4 L44,10" fill="none" stroke="var(--sage)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span data-i18n="likeWork">Trabajar (analista)</span>
+          </div>
+        </div>
+      </div>
+      <div class="likes-column">
+        <p class="likes-name">Amelia</p>
+        <div class="likes-grid">
+          <div class="like-item">
+            <svg class="like-icon" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+              <path d="M30,38 C29,44 31,49 29,54" fill="none" stroke="var(--sage-dark)" stroke-width="2.4" stroke-linecap="round"/>
+              <g>
+                <path transform="rotate(0 30 28)"   d="M30,28 C25,24 23,16 30,10 C37,16 35,24 30,28 Z" fill="var(--dawnrose)"/>
+                <path transform="rotate(72 30 28)"  d="M30,28 C25,24 23,16 30,10 C37,16 35,24 30,28 Z" fill="var(--dawnrose)"/>
+                <path transform="rotate(144 30 28)" d="M30,28 C25,24 23,16 30,10 C37,16 35,24 30,28 Z" fill="var(--dawnrose)"/>
+                <path transform="rotate(216 30 28)" d="M30,28 C25,24 23,16 30,10 C37,16 35,24 30,28 Z" fill="var(--dawnrose)"/>
+                <path transform="rotate(288 30 28)" d="M30,28 C25,24 23,16 30,10 C37,16 35,24 30,28 Z" fill="var(--dawnrose)"/>
+                <circle cx="30" cy="25" r="3.4" fill="var(--dawngold)"/>
+              </g>
+            </svg>
+            <span data-i18n="likeFlowers">Flores</span>
+          </div>
+          <div class="like-item">
+            <svg class="like-icon" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+              <rect x="10" y="10" width="40" height="28" rx="3" fill="none" stroke="var(--dusk)" stroke-width="2.4"/>
+              <path d="M17,32 L24,20 L30,27 L36,16 L43,32 Z" fill="var(--dawnrose)"/>
+              <circle cx="18" cy="17" r="3" fill="var(--dawngold)"/>
+              <line x1="14" y1="46" x2="46" y2="46" stroke="var(--dusk)" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="24" cy="46" r="3" fill="var(--ember)"/>
+              <line x1="14" y1="52" x2="46" y2="52" stroke="var(--dusk)" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="36" cy="52" r="3" fill="var(--ember)"/>
+            </svg>
+            <span data-i18n="likeEditing">Edición</span>
+          </div>
+          <div class="like-item">
+            <svg class="like-icon" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+              <rect x="24" y="30" width="12" height="16" rx="2" fill="var(--dusk)"/>
+              <rect x="25" y="22" width="10" height="10" fill="var(--dawnrose)"/>
+              <path d="M25,22 C25,16 35,16 35,22 C35,16 30,10 30,10 C30,10 25,16 25,22 Z" fill="var(--ember)"/>
+            </svg>
+            <span data-i18n="likeMakeup">Maquillaje</span>
+          </div>
+          <div class="like-item">
+            <svg class="like-icon" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="42" cy="14" r="6" fill="var(--dawngold)"/>
+              <path d="M6,46 L22,20 L32,34 L38,24 L52,46 Z" fill="var(--sage)"/>
+              <path d="M6,46 L22,20 L27,28 L14,46 Z" fill="var(--sage-dark)"/>
+            </svg>
+            <span data-i18n="likeNature">Naturaleza</span>
+          </div>
+          <div class="like-item">
+            <svg class="like-icon" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16,30 L44,30 L40,48 C40,50 20,50 20,48 Z" fill="var(--ember)"/>
+              <path d="M14,30 C14,30 16,20 30,20 C44,20 46,30 46,30 Z" fill="#FFF9F1"/>
+              <path d="M20,20 C20,12 26,10 30,14 C34,10 40,12 40,20 C34,16 26,16 20,20 Z" fill="var(--dawnrose)"/>
+              <circle cx="30" cy="12" r="3" fill="#B33A22"/>
+            </svg>
+            <span data-i18n="likeBaking">Hacer pasteles</span>
+          </div>
+          <div class="like-item">
+            <svg class="like-icon" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8,30 C18,16 42,16 52,30 C42,42 18,42 8,30 Z" fill="var(--paper)" stroke="var(--dusk)" stroke-width="2"/>
+              <circle cx="30" cy="30" r="9" fill="var(--dawnrose)"/>
+              <circle cx="30" cy="30" r="4.2" fill="var(--ink)"/>
+              <circle cx="27" cy="26" r="2.6" fill="#FFF9F1"/>
+              <path d="M12,24 C18,19 24,17 30,17" fill="none" stroke="var(--dusk)" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span data-i18n="likeAnime">Ver anime</span>
+            <small data-i18n="likeSharedNote">(los dos)</small>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -798,6 +1108,22 @@
     });
   }, { threshold: 0.2 });
   paragraphs.forEach((p) => observer.observe(p));
+
+  // Revelado escalonado de los íconos de "Lo que nos gusta"
+  document.querySelectorAll(".likes-column").forEach((column) => {
+    const items = column.querySelectorAll(".like-item");
+    const columnObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting){
+          items.forEach((item, i) => {
+            setTimeout(() => item.classList.add("visible"), i * 140);
+          });
+          columnObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.25 });
+    columnObserver.observe(column);
+  });
 
   // Carrusel de fotos (ambos lados)
   function initCarousel(wrapId, dotsId){
@@ -843,7 +1169,22 @@
       flowersLabel: "Bunga favoritnya",
       flowerRose: "Mawar",
       flowerEdelweiss: "Edelweiss",
-      chatHer1: "kamu manis banget",
+      likesLabel: "Hal yang kami suka",
+      birthdaysLabel: "Ulang tahun kami",
+      birthdayElias: "16 Oktober",
+      birthdayAmelia: "22 Maret",
+      countdownDays: "hari lagi",
+      countdownToday: "Hari ini!",
+      likePiano: "Piano",
+      likeMusic: "Mendengarkan musik",
+      likeAnime: "Nonton anime",
+      likeWork: "Bekerja (analis)",
+      likeFlowers: "Bunga",
+      likeEditing: "Editing",
+      likeMakeup: "Makeup",
+      likeNature: "Alam",
+      likeBaking: "Membuat kue",
+      likeSharedNote: "(kita berdua)",
       chatHim1: "kamu jauh lebih manis dari itu",
       chatHer2: "kamu bikin aku bahagia",
       chatHim2: "aku lebih bahagia lagi karena kamu bahagia",
@@ -887,6 +1228,22 @@
       flowersLabel: "Her favorite flowers",
       flowerRose: "Roses",
       flowerEdelweiss: "Edelweiss",
+      likesLabel: "What we like",
+      birthdaysLabel: "Our birthdays",
+      birthdayElias: "October 16th",
+      birthdayAmelia: "March 22nd",
+      countdownDays: "days to go",
+      countdownToday: "Today!",
+      likePiano: "Piano",
+      likeMusic: "Listening to music",
+      likeAnime: "Watching anime",
+      likeWork: "Working (analyst)",
+      likeFlowers: "Flowers",
+      likeEditing: "Editing",
+      likeMakeup: "Makeup",
+      likeNature: "Nature",
+      likeBaking: "Baking cakes",
+      likeSharedNote: "(both of us)",
       chatHer1: "urr so sweeet",
       chatHim1: "you are way more sweet",
       chatHer2: "you make me happy",
@@ -931,6 +1288,22 @@
       flowersLabel: "Sus flores favoritas",
       flowerRose: "Rosas",
       flowerEdelweiss: "Edelweiss",
+      likesLabel: "Lo que nos gusta",
+      birthdaysLabel: "Nuestros cumpleaños",
+      birthdayElias: "16 de octubre",
+      birthdayAmelia: "22 de marzo",
+      countdownDays: "días para el suyo",
+      countdownToday: "¡Hoy!",
+      likePiano: "Piano",
+      likeMusic: "Escuchar música",
+      likeAnime: "Ver anime",
+      likeWork: "Trabajar (analista)",
+      likeFlowers: "Flores",
+      likeEditing: "Edición",
+      likeMakeup: "Maquillaje",
+      likeNature: "Naturaleza",
+      likeBaking: "Hacer pasteles",
+      likeSharedNote: "(los dos)",
       chatHer1: "eres tan dulce",
       chatHim1: "tú eres mucho más dulce",
       chatHer2: "me haces feliz",
@@ -996,6 +1369,7 @@
     });
     renderLetter();
     renderGreeting();
+    renderBirthdays();
   }
 
   function renderGreeting(){
@@ -1012,6 +1386,29 @@
     }
     document.getElementById("greeting-title").textContent = dict[titleKey];
     document.getElementById("greeting-note").textContent = dict[noteKey];
+  }
+
+  function daysUntilNextBirthday(month, day){
+    const now = new Date();
+    const thisYear = now.getFullYear();
+    let next = new Date(thisYear, month - 1, day);
+    now.setHours(0,0,0,0);
+    next.setHours(0,0,0,0);
+    if (next < now){
+      next = new Date(thisYear + 1, month - 1, day);
+    }
+    return Math.round((next - now) / 86400000);
+  }
+
+  function renderBirthdays(){
+    const dict = translations[currentLang];
+    if (!dict) return;
+    const eliasDays = daysUntilNextBirthday(10, 16);
+    const ameliaDays = daysUntilNextBirthday(3, 22);
+    const eliasEl = document.getElementById("countdown-elias");
+    const ameliaEl = document.getElementById("countdown-amelia");
+    eliasEl.textContent = eliasDays === 0 ? dict.countdownToday : `${eliasDays} ${dict.countdownDays}`;
+    ameliaEl.textContent = ameliaDays === 0 ? dict.countdownToday : `${ameliaDays} ${dict.countdownDays}`;
   }
 
   function setAuthor(author){
