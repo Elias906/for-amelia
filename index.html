@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="id" id="html-root">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="doc-title">Untuk Amelia</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0%25' stop-color='%233B1F4D'/%3E%3Cstop offset='32%25' stop-color='%23E85D3D'/%3E%3Cstop offset='62%25' stop-color='%23F2A0A0'/%3E%3Cstop offset='100%25' stop-color='%23FFD9A6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Cline x1='4' y1='44' x2='60' y2='44' stroke='rgba(255,255,255,0.55)' stroke-width='2'/%3E%3Ccircle cx='20' cy='30' r='9' fill='%23FFE3C2'/%3E%3Ccircle cx='46' cy='26' r='6' fill='%23FFFDF7'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Work+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1A1025;
+    --dusk:#3B1F4D;
+    --ember:#E85D3D;
+    --dawnrose:#F2A0A0;
+    --dawngold:#FFD9A6;
+    --paper:#FBF6F0;
+    --paper-dim:#F1E9DD;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    font-family:'Work Sans', sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    overflow-x:hidden;
+  }
+
+  a{ color:inherit; }
+
+  :focus-visible{
+    outline:2px solid var(--ember);
+    outline-offset:3px;
+  }
+
+  /* ---------- LANGUAGE SWITCH ---------- */
+  .lang-switch{
+    position:fixed;
+    top:1.2rem;
+    right:1.2rem;
+    z-index:20;
+    display:flex;
+    gap:0.3rem;
+    background:rgba(26,16,37,0.28);
+    backdrop-filter:blur(6px);
+    padding:0.3rem;
+    border-radius:999px;
+  }
+
+  .lang-switch button{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.08em;
+    padding:0.4rem 0.7rem;
+    border-radius:999px;
+    border:none;
+    background:transparent;
+    color:rgba(255,255,255,0.75);
+    cursor:pointer;
+    transition:background 0.25s ease, color 0.25s ease;
+  }
+
+  .lang-switch button[aria-pressed="true"]{
+    background:#FFF9F1;
+    color:var(--dusk);
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:6vh 6vw;
+    overflow:hidden;
+    background:linear-gradient(100deg,
+      var(--dusk) 0%,
+      var(--ember) 32%,
+      var(--dawnrose) 62%,
+      var(--dawngold) 100%
+    );
+  }
+
+  .hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(ellipse at 50% 78%, rgba(0,0,0,0.18), transparent 60%);
+    pointer-events:none;
+  }
+
+  .sun-glow, .moon-glow{
+    position:absolute;
+    top:22%;
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    filter:blur(2px);
+  }
+  .sun-glow{
+    left:14%;
+    background:radial-gradient(circle at 40% 40%, #FFE3C2, var(--ember) 70%, transparent 75%);
+    box-shadow:0 0 90px 30px rgba(232,93,61,0.45);
+    animation:float-sun 7s ease-in-out infinite;
+  }
+  .moon-glow{
+    right:14%;
+    width:90px; height:90px;
+    background:radial-gradient(circle at 35% 35%, #FFFDF7, var(--dawngold) 75%, transparent 80%);
+    box-shadow:0 0 70px 24px rgba(255,217,166,0.5);
+    animation:float-moon 8s ease-in-out infinite;
+  }
+
+  @keyframes float-sun{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-10px); } }
+  @keyframes float-moon{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-8px); } }
+
+  .hero-content{
+    position:relative;
+    z-index:2;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:1.1rem;
+    animation:rise 1.4s cubic-bezier(.2,.7,.3,1) both;
+  }
+
+  @keyframes rise{ from{ opacity:0; transform:translateY(22px); } to{ opacity:1; transform:translateY(0); } }
+
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.28em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.85);
+  }
+
+  .hero-title{
+    font-family:'Newsreader', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:clamp(2.6rem, 8vw, 5.2rem);
+    color:#FFF9F1;
+    line-height:1.05;
+    text-shadow:0 2px 30px rgba(0,0,0,0.15);
+  }
+
+  .hero-sub{
+    font-weight:400;
+    font-size:clamp(0.85rem, 1.6vw, 1.05rem);
+    color:rgba(255,255,255,0.92);
+    max-width:36ch;
+  }
+
+  .route{
+    position:relative;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    gap:0.9rem;
+    margin-top:2.4rem;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.08em;
+    color:#FFF9F1;
+  }
+
+  .route .city{ display:flex; flex-direction:column; align-items:center; gap:0.35rem; }
+  .route .dot{ width:9px; height:9px; border-radius:50%; background:#FFF9F1; box-shadow:0 0 10px rgba(255,255,255,0.8); }
+  .route .line{
+    width:clamp(60px, 14vw, 160px);
+    height:1px;
+    background:repeating-linear-gradient(90deg, rgba(255,255,255,0.85) 0 6px, transparent 6px 12px);
+    position:relative;
+  }
+  .route .line::after{
+    content:"18 000 km";
+    position:absolute;
+    top:-1.4rem;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:0.62rem;
+    letter-spacing:0.1em;
+    color:rgba(255,255,255,0.75);
+    white-space:nowrap;
+  }
+
+  .scroll-cue{
+    position:absolute;
+    bottom:2.2rem;
+    left:50%;
+    transform:translateX(-50%);
+    width:1px;
+    height:38px;
+    background:rgba(255,255,255,0.55);
+    z-index:2;
+  }
+  .scroll-cue::after{
+    content:"";
+    position:absolute;
+    left:-2px; top:0;
+    width:5px; height:5px;
+    border-radius:50%;
+    background:#fff;
+    animation:cue 2.2s ease-in-out infinite;
+  }
+  @keyframes cue{
+    0%{ top:0; opacity:0; }
+    20%{ opacity:1; }
+    80%{ opacity:1; }
+    100%{ top:32px; opacity:0; }
+  }
+
+  /* ---------- PHOTO ---------- */
+  .photo-section{
+    padding:5rem 6vw 1rem;
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+    gap:1.4rem;
+    flex-wrap:wrap;
+    background:var(--paper);
+  }
+
+  .polaroid{
+    background:#FFFDF9;
+    padding:0.9rem 0.9rem 1.6rem;
+    border-radius:6px;
+    box-shadow:0 22px 45px -18px rgba(59,31,77,0.35), 0 3px 10px rgba(59,31,77,0.12);
+    max-width:220px;
+    width:44vw;
+    opacity:0;
+    animation:polaroid-in 1s cubic-bezier(.2,.7,.3,1) 0.4s both;
+  }
+
+  .polaroid.her{ transform:rotate(-3deg); z-index:2; }
+  .polaroid.him{ transform:rotate(3deg); margin-right:-1.6rem; animation-delay:0.6s; }
+
+  @keyframes polaroid-in{
+    from{ opacity:0; transform:translateY(24px) rotate(var(--r, 0deg)); }
+    to{ opacity:1; transform:translateY(0) rotate(var(--r, 0deg)); }
+  }
+
+  .polaroid.her{ --r:-3deg; }
+  .polaroid.him{ --r:3deg; }
+
+  .polaroid img{
+    display:block;
+    width:100%;
+    aspect-ratio:1/1;
+    object-fit:cover;
+    border-radius:2px;
+    filter:saturate(1.04) contrast(1.02);
+  }
+
+  .carousel{
+    position:relative;
+    width:100%;
+    aspect-ratio:1/1;
+    border-radius:2px;
+    overflow:hidden;
+  }
+
+  .carousel img{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:0;
+    opacity:0;
+    transition:opacity 1.1s ease;
+  }
+
+  .carousel img.active{ opacity:1; }
+
+  .carousel-dots{
+    display:flex;
+    justify-content:center;
+    gap:0.32rem;
+    margin-top:0.55rem;
+  }
+
+  .carousel-dots span{
+    width:5px; height:5px;
+    border-radius:50%;
+    background:rgba(59,31,77,0.25);
+    transition:background 0.3s ease, transform 0.3s ease;
+  }
+
+  .carousel-dots span.active{
+    background:var(--ember);
+    transform:scale(1.3);
+  }
+
+  .polaroid figcaption{
+    margin-top:0.9rem;
+    text-align:center;
+    font-family:'Newsreader', serif;
+    font-style:italic;
+    font-size:1rem;
+    color:var(--dusk);
+  }
+
+  /* ---------- COUNTER ---------- */
+  .counter-section{
+    padding:3.5rem 6vw 4.5rem;
+    text-align:center;
+    background:var(--paper);
+  }
+
+  .counter-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.24em;
+    text-transform:uppercase;
+    color:var(--dusk);
+    opacity:0.7;
+    margin-bottom:1.3rem;
+  }
+
+  .counter{
+    display:inline-flex;
+    gap:clamp(0.6rem, 2.5vw, 1.6rem);
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+
+  .counter-unit{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    min-width:76px;
+    padding:1.1rem 0.6rem 0.9rem;
+    background:var(--paper-dim);
+    border-radius:14px;
+    border:1px solid rgba(59,31,77,0.08);
+  }
+
+  .counter-unit span{
+    font-family:'JetBrains Mono', monospace;
+    font-weight:500;
+    font-size:clamp(1.6rem, 4vw, 2.3rem);
+    color:var(--ember);
+    font-variant-numeric:tabular-nums;
+  }
+
+  .counter-unit small{
+    margin-top:0.25rem;
+    font-size:0.65rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--dusk);
+    opacity:0.65;
+  }
+
+  /* ---------- LETTER ---------- */
+  .letter{
+    max-width:640px;
+    margin:0 auto;
+    padding:1rem 6vw 8rem;
+  }
+
+  .letter p{
+    font-family:'Newsreader', serif;
+    font-size:clamp(1.08rem, 2.3vw, 1.32rem);
+    line-height:1.75;
+    color:var(--ink);
+    margin-bottom:1.6rem;
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity 0.9s ease, transform 0.9s ease;
+  }
+
+  .letter p.visible{ opacity:1; transform:translateY(0); }
+
+  .letter .signature{
+    font-style:italic;
+    font-weight:500;
+    margin-top:2.4rem;
+    color:var(--ember);
+  }
+
+  .author-switch{
+    display:flex;
+    justify-content:center;
+    gap:0.4rem;
+    margin-bottom:2.6rem;
+  }
+
+  .author-switch button{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.1em;
+    padding:0.55rem 1.3rem;
+    border-radius:999px;
+    border:1px solid rgba(59,31,77,0.18);
+    background:transparent;
+    color:var(--dusk);
+    cursor:pointer;
+    transition:background 0.25s ease, color 0.25s ease;
+  }
+
+  .author-switch button[aria-pressed="true"]{
+    background:var(--dusk);
+    color:#FFF9F1;
+    border-color:var(--dusk);
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    text-align:center;
+    padding:2.4rem 6vw 3.2rem;
+    border-top:1px solid rgba(59,31,77,0.1);
+  }
+
+  footer p{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--dusk);
+    opacity:0.55;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+    .letter p{ opacity:1; transform:none; }
+    .polaroid{ opacity:1; }
+  }
+
+  @media (max-width:520px){
+    .route .line::after{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="lang-switch" role="group" aria-label="Pilih bahasa / Language / Idioma">
+    <button type="button" data-lang="id" aria-pressed="true">ID</button>
+    <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    <button type="button" data-lang="es" aria-pressed="false">ES</button>
+  </div>
+
+  <section class="hero">
+    <div class="sun-glow"></div>
+    <div class="moon-glow"></div>
+
+    <div class="hero-content">
+      <span class="eyebrow">19 · 07 — 20 · 07</span>
+      <h1 class="hero-title" data-i18n="heroTitle">Untuk Amelia</h1>
+      <p class="hero-sub" data-i18n="heroSub">Sebuah pesan dari Lima, untuk seseorang yang menyambut pagi di belahan dunia lain.</p>
+    </div>
+
+    <div class="route">
+      <div class="city">LIMA<div class="dot"></div></div>
+      <div class="line"></div>
+      <div class="city">GARUT<div class="dot"></div></div>
+    </div>
+
+    <div class="scroll-cue" aria-hidden="true"></div>
+  </section>
+
+  <section class="photo-section">
+    <figure class="polaroid him">
+      <div class="carousel" id="carousel-him">
+        <img src="elias.jpg" alt="Elías" class="active">
+        <img src="elias2.jpg" alt="Elías">
+        <img src="elias3.jpg" alt="Elías">
+        <img src="elias4.jpg" alt="Elías">
+        <img src="elias6.jpg" alt="Elías">
+      </div>
+      <div class="carousel-dots" id="dots-him" aria-hidden="true"></div>
+      <figcaption data-i18n="photoCaptionHim">Elías · Lima</figcaption>
+    </figure>
+    <figure class="polaroid her">
+      <div class="carousel" id="carousel-her">
+        <img src="amelia.jpg" alt="Amelia" class="active">
+        <img src="amelia2.jpg" alt="Amelia">
+        <img src="amelia3.jpg" alt="Amelia">
+        <img src="amelia4.jpg" alt="Amelia">
+      </div>
+      <div class="carousel-dots" id="dots-her" aria-hidden="true"></div>
+      <figcaption data-i18n="photoCaption">Amelia · Garut</figcaption>
+    </figure>
+  </section>
+
+  <section class="counter-section">
+    <p class="counter-label" data-i18n="counterLabel">Kita sudah mengobrol selama</p>
+    <div class="counter" id="counter">
+      <div class="counter-unit"><span id="days">00</span><small data-i18n="unitDays">hari</small></div>
+      <div class="counter-unit"><span id="hours">00</span><small data-i18n="unitHours">jam</small></div>
+      <div class="counter-unit"><span id="minutes">00</span><small data-i18n="unitMinutes">menit</small></div>
+      <div class="counter-unit"><span id="seconds">00</span><small data-i18n="unitSeconds">detik</small></div>
+    </div>
+  </section>
+
+  <section class="letter" id="letter">
+    <div class="author-switch" role="group" aria-label="Elías / Amelia">
+      <button type="button" data-author="elias" aria-pressed="true">Elías</button>
+      <button type="button" data-author="amelia" aria-pressed="false">Amelia</button>
+    </div>
+    <p data-i18n="p1">Amelia,</p>
+    <p data-i18n="p2">Kita bertemu di aplikasi Bumpy, dan koneksinya terasa hampir instan. Aku tidak menyangka akan menemukanmu, tapi ternyata itu terjadi juga. Jam-jam yang kita habiskan mengobrol adalah bagian terbaik dari beberapa minggu terakhir ini.</p>
+    <p data-i18n="p3">Sore itu aku melewatkan final Piala Dunia karena terlalu sibuk mengobrol denganmu. Aku tidak menyesal — hasilnya lebih baik daripada adu penalti mana pun.</p>
+    <p data-i18n="p4">Hampir 18.000 kilometer dan dua belas jam memisahkan kita, tapi setiap percakapan tetap terasa sedikit lebih dekat dari yang sebelumnya.</p>
+    <p data-i18n="p5">Aku belum tahu pasti ini apa. Tapi aku ingin ini ada di suatu tempat selain chat kita — sesuatu yang bisa kamu buka dan tahu bahwa aku memikirkanmu, meskipun matahari terbit di jam yang berbeda untuk kita berdua.</p>
+    <p class="signature" data-i18n="signature">— Elías</p>
+  </section>
+
+  <footer>
+    <p data-i18n="footer">Lima, Peru · Garut, Indonesia · ~18.000 km · 12 jam perbedaan waktu</p>
+  </footer>
+
+<script>
+  const START = new Date("2026-07-19T14:00:00-05:00");
+
+  function updateCounter(){
+    const now = new Date();
+    let diff = Math.max(0, now - START);
+    const days = Math.floor(diff / 86400000); diff -= days * 86400000;
+    const hours = Math.floor(diff / 3600000); diff -= hours * 3600000;
+    const minutes = Math.floor(diff / 60000); diff -= minutes * 60000;
+    const seconds = Math.floor(diff / 1000);
+    document.getElementById("days").textContent = String(days).padStart(2, "0");
+    document.getElementById("hours").textContent = String(hours).padStart(2, "0");
+    document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
+    document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
+  }
+  updateCounter();
+  setInterval(updateCounter, 1000);
+
+  const paragraphs = document.querySelectorAll(".letter p");
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting){
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  paragraphs.forEach((p) => observer.observe(p));
+
+  // Carrusel de fotos (ambos lados)
+  function initCarousel(wrapId, dotsId){
+    const wrap = document.getElementById(wrapId);
+    const dotsWrap = document.getElementById(dotsId);
+    if (!wrap) return;
+    const imgs = Array.from(wrap.querySelectorAll("img"));
+    imgs.forEach((_, i) => {
+      const dot = document.createElement("span");
+      if (i === 0) dot.classList.add("active");
+      dotsWrap.appendChild(dot);
+    });
+    const dots = Array.from(dotsWrap.children);
+    let current = 0;
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (imgs.length > 1 && !prefersReduced){
+      setInterval(() => {
+        imgs[current].classList.remove("active");
+        dots[current].classList.remove("active");
+        current = (current + 1) % imgs.length;
+        imgs[current].classList.add("active");
+        dots[current].classList.add("active");
+      }, 3200);
+    }
+  }
+  initCarousel("carousel-him", "dots-him");
+  initCarousel("carousel-her", "dots-her");
+
+  const translations = {
+    id: {
+      title: "Untuk Amelia",
+      heroTitle: "Untuk Amelia",
+      heroSub: "Sebuah pesan dari Lima, untuk seseorang yang menyambut pagi di belahan dunia lain.",
+      photoCaption: "Amelia · Garut",
+      photoCaptionHim: "Elías · Lima",
+      counterLabel: "Kita sudah mengobrol selama",
+      unitDays: "hari",
+      unitHours: "jam",
+      unitMinutes: "menit",
+      unitSeconds: "detik",
+      footer: "Lima, Peru · Garut, Indonesia · ~18.000 km · 12 jam perbedaan waktu",
+      authors: {
+        elias: {
+          p1: "Amelia,",
+          p2: "Kita bertemu di aplikasi Bumpy, dan koneksinya terasa hampir instan. Aku tidak menyangka akan menemukanmu, tapi ternyata itu terjadi juga. Jam-jam yang kita habiskan mengobrol adalah bagian terbaik dari beberapa minggu terakhir ini.",
+          p3: "Sore itu aku melewatkan final Piala Dunia karena terlalu sibuk mengobrol denganmu. Aku tidak menyesal — hasilnya lebih baik daripada adu penalti mana pun.",
+          p4: "Hampir 18.000 kilometer dan dua belas jam memisahkan kita, tapi setiap percakapan tetap terasa sedikit lebih dekat dari yang sebelumnya.",
+          p5: "Aku belum tahu pasti ini apa. Tapi aku ingin ini ada di suatu tempat selain chat kita — sesuatu yang bisa kamu buka dan tahu bahwa aku memikirkanmu, meskipun matahari terbit di jam yang berbeda untuk kita berdua.",
+          signature: "— Elías"
+        },
+        amelia: {
+          p1: "Setiap hari kita mengobrol, aku semakin mengenal dirimu sedikit demi sedikit, dan setiap hari aku semakin sering tersenyum karenamu. Terima kasih sudah sabar denganku dan membuatku merasa dihargai — aku bersyukur kita bertemu.",
+          p2: "Terima kasih sudah hadir di hidupku dengan cara yang begitu tak terduga. Setiap obrolan denganmu memberiku rasa nyaman, tawa, dan kebahagiaan.",
+          p3: "Aku belum tahu apa yang direncanakan masa depan untuk kita, tapi aku tahu aku menikmati setiap langkah yang kita jalani bersama.",
+          signature: "— Amelia"
+        }
+      }
+    },
+    en: {
+      title: "For Amelia",
+      heroTitle: "For Amelia",
+      heroSub: "A message from Lima, for someone waking up on the other side of the world.",
+      photoCaption: "Amelia · Garut",
+      photoCaptionHim: "Elías · Lima",
+      counterLabel: "We've been talking for",
+      unitDays: "days",
+      unitHours: "hours",
+      unitMinutes: "min",
+      unitSeconds: "sec",
+      footer: "Lima, Peru · Garut, Indonesia · ~18,000 km · 12-hour time difference",
+      authors: {
+        elias: {
+          p1: "Amelia,",
+          p2: "We met on the Bumpy app, and the connection felt almost instant. I didn't expect to find you, but somehow it happened anyway. The hours we've spent talking are some of the best hours of these last few weeks.",
+          p3: "I missed the World Cup final that evening because I was too busy talking to you. No regrets — it turned out better than any penalty shootout.",
+          p4: "Almost 18,000 kilometers and twelve hours apart, and still every conversation feels a little closer than the last.",
+          p5: "I don't quite know what this is yet. But I wanted it to exist somewhere besides our chat — something you could open and know that I think of you, even when the sun rises at different hours for each of us.",
+          signature: "— Elías"
+        },
+        amelia: {
+          p1: "Every day we talk, I discover a little more about you, and every day I smile a little more because of you. Thank you for being patient with me and for making me feel appreciated — I'm grateful that we met.",
+          p2: "Thank you for coming into my life so unexpectedly. Every conversation with you brings me comfort, laughter, and happiness.",
+          p3: "I don't know what the future has planned for us, but I know I'm enjoying every step we're taking together.",
+          signature: "— Amelia"
+        }
+      }
+    },
+    es: {
+      title: "Para Amelia",
+      heroTitle: "Para Amelia",
+      heroSub: "Un mensaje desde Lima, para alguien que amanece del otro lado del mundo.",
+      photoCaption: "Amelia · Garut",
+      photoCaptionHim: "Elías · Lima",
+      counterLabel: "Llevamos hablando",
+      unitDays: "días",
+      unitHours: "horas",
+      unitMinutes: "min",
+      unitSeconds: "seg",
+      footer: "Lima, Perú · Garut, Indonesia · ~18 000 km · 12 horas de diferencia",
+      authors: {
+        elias: {
+          p1: "Amelia,",
+          p2: "Nos conocimos en la app Bumpy, e hicimos conexión casi al instante. No imaginé encontrarte, pero aun así pasó. Las horas que hemos pasado hablando son de las mejores de estas últimas semanas.",
+          p3: "Esa tarde me perdí la final del Mundial por seguir hablando contigo. No me arrepiento: resultó mejor que cualquier tanda de penales.",
+          p4: "Nos separan casi 18 mil kilómetros y doce horas de diferencia, y aun así cada conversación se siente un poco más cerca que la anterior.",
+          p5: "No sé bien qué es esto todavía. Pero quería que existiera en algún lugar además de nuestro chat: algo que pudieras abrir y saber que pienso en ti, aunque el sol nos salga a horas distintas.",
+          signature: "— Elías"
+        },
+        amelia: {
+          p1: "Cada día que hablamos descubro un poco más sobre ti, y cada día sonrío un poco más gracias a ti. Gracias por tener paciencia conmigo y por hacerme sentir valorada — estoy agradecida de que nos hayamos conocido.",
+          p2: "Gracias por llegar a mi vida de una forma tan inesperada. Cada conversación contigo me trae calma, risas y felicidad.",
+          p3: "No sé qué nos depara el futuro, pero sé que estoy disfrutando cada paso que damos juntos.",
+          signature: "— Amelia"
+        }
+      }
+    }
+  };
+
+  let currentLang = "id";
+  let currentAuthor = "elias";
+
+  function renderLetter(){
+    const author = translations[currentLang].authors[currentAuthor];
+    for (let i = 1; i <= 5; i++){
+      const el = document.querySelector(`[data-i18n="p${i}"]`);
+      if (!el) continue;
+      const text = author[`p${i}`];
+      if (text){
+        el.textContent = text;
+        el.style.display = "";
+      } else {
+        el.style.display = "none";
+      }
+    }
+    document.querySelector('[data-i18n="signature"]').textContent = author.signature;
+  }
+
+  function setLanguage(lang){
+    const dict = translations[lang];
+    if (!dict) return;
+    currentLang = lang;
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+      const key = el.getAttribute("data-i18n");
+      if (key === "p1" || key === "p2" || key === "p3" || key === "p4" || key === "p5" || key === "signature") return;
+      if (dict[key]) el.textContent = dict[key];
+    });
+    document.getElementById("doc-title").textContent = dict.title;
+    document.getElementById("html-root").setAttribute("lang", lang);
+    document.querySelectorAll(".lang-switch button").forEach((btn) => {
+      btn.setAttribute("aria-pressed", btn.getAttribute("data-lang") === lang ? "true" : "false");
+    });
+    renderLetter();
+  }
+
+  function setAuthor(author){
+    currentAuthor = author;
+    document.querySelectorAll(".author-switch button").forEach((btn) => {
+      btn.setAttribute("aria-pressed", btn.getAttribute("data-author") === author ? "true" : "false");
+    });
+    renderLetter();
+  }
+
+  document.querySelectorAll(".lang-switch button").forEach((btn) => {
+    btn.addEventListener("click", () => setLanguage(btn.getAttribute("data-lang")));
+  });
+
+  document.querySelectorAll(".author-switch button").forEach((btn) => {
+    btn.addEventListener("click", () => setAuthor(btn.getAttribute("data-author")));
+  });
+
+  renderLetter();
+</script>
+
+
+</body>
+</html>
