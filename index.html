@@ -401,12 +401,136 @@
     border-radius:50%;
     background:rgba(59,31,77,0.25);
     transition:background 0.3s ease, transform 0.3s ease;
+    cursor:pointer;
+    padding:3px;
+    background-clip:content-box;
   }
 
   .carousel-dots span.active{
     background:var(--ember);
     transform:scale(1.3);
   }
+
+  /* Flechas de navegación manual */
+  .carousel-nav{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    width:26px;
+    height:26px;
+    border-radius:50%;
+    border:none;
+    background:rgba(26,16,37,0.45);
+    color:#FFF9F1;
+    font-size:1rem;
+    line-height:1;
+    cursor:pointer;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:6;
+    transition:background 0.2s ease;
+  }
+  .carousel-nav:hover{ background:rgba(26,16,37,0.7); }
+  .carousel-nav.prev{ left:6px; }
+  .carousel-nav.next{ right:6px; }
+
+  body.manual-mode .carousel-nav{ display:flex; }
+
+  /* Botón de pantalla completa */
+  .expand-btn{
+    position:absolute;
+    top:6px;
+    right:6px;
+    width:26px;
+    height:26px;
+    padding:5px;
+    border-radius:6px;
+    border:none;
+    background:rgba(26,16,37,0.45);
+    cursor:pointer;
+    z-index:6;
+    transition:background 0.2s ease;
+  }
+  .expand-btn:hover{ background:rgba(26,16,37,0.7); }
+  .expand-btn svg{ width:100%; height:100%; }
+
+  /* Interruptor Automático / Manual */
+  .mode-toggle{
+    display:flex;
+    justify-content:center;
+    gap:0.4rem;
+    margin:1rem auto 0;
+  }
+  .mode-toggle button{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.06em;
+    padding:0.4rem 0.9rem;
+    border-radius:999px;
+    border:1px solid rgba(59,31,77,0.18);
+    background:transparent;
+    color:var(--dusk);
+    cursor:pointer;
+    transition:background 0.25s ease, color 0.25s ease;
+  }
+  .mode-toggle button[aria-pressed="true"]{
+    background:var(--dusk);
+    color:#FFF9F1;
+    border-color:var(--dusk);
+  }
+
+  /* Lightbox de pantalla completa */
+  .lightbox{
+    position:fixed;
+    inset:0;
+    background:rgba(15,9,23,0.92);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:100;
+    padding:5vh 6vw;
+  }
+  .lightbox.open{ display:flex; }
+
+  .lightbox img{
+    max-width:100%;
+    max-height:88vh;
+    border-radius:10px;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.6);
+  }
+
+  .lightbox-close{
+    position:absolute;
+    top:1.2rem;
+    right:1.2rem;
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    border:none;
+    background:rgba(255,255,255,0.12);
+    color:#FFF9F1;
+    font-size:1.4rem;
+    line-height:1;
+    cursor:pointer;
+  }
+
+  .lightbox-arrow{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    width:46px;
+    height:46px;
+    border-radius:50%;
+    border:none;
+    background:rgba(255,255,255,0.12);
+    color:#FFF9F1;
+    font-size:1.6rem;
+    line-height:1;
+    cursor:pointer;
+  }
+  .lightbox-prev{ left:2vw; }
+  .lightbox-next{ right:2vw; }
 
   .polaroid figcaption{
     margin-top:0.9rem;
@@ -1007,8 +1131,13 @@
           <img src="elias3.jpg" alt="Elías">
           <img src="elias4.jpg" alt="Elías">
           <img src="elias6.jpg" alt="Elías">
-        <img src="elias7.jpg" alt="Elías">
-        <img src="elias8.jpg" alt="Elías">
+          <img src="elias7.jpg" alt="Elías">
+          <img src="elias8.jpg" alt="Elías">
+          <button type="button" class="carousel-nav prev" data-target="him" aria-label="Anterior">‹</button>
+          <button type="button" class="carousel-nav next" data-target="him" aria-label="Siguiente">›</button>
+          <button type="button" class="expand-btn" data-target="him" aria-label="Ver en pantalla completa">
+            <svg viewBox="0 0 24 24"><path d="M4,10 L4,4 L10,4 M14,4 L20,4 L20,10 M20,14 L20,20 L14,20 M10,20 L4,20 L4,14" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
         </div>
         <div class="carousel-dots" id="dots-him" aria-hidden="true"></div>
         <figcaption data-i18n="photoCaptionHim">Elías · Lima</figcaption>
@@ -1022,12 +1151,29 @@
           <img src="amelia2.jpg" alt="Amelia">
           <img src="amelia3.jpg" alt="Amelia">
           <img src="amelia4.jpg" alt="Amelia">
+          <button type="button" class="carousel-nav prev" data-target="her" aria-label="Anterior">‹</button>
+          <button type="button" class="carousel-nav next" data-target="her" aria-label="Siguiente">›</button>
+          <button type="button" class="expand-btn" data-target="her" aria-label="Ver en pantalla completa">
+            <svg viewBox="0 0 24 24"><path d="M4,10 L4,4 L10,4 M14,4 L20,4 L20,10 M20,14 L20,20 L14,20 M10,20 L4,20 L4,14" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
         </div>
         <div class="carousel-dots" id="dots-her" aria-hidden="true"></div>
         <figcaption data-i18n="photoCaption">Amelia · Garut</figcaption>
       </figure>
     </div>
   </section>
+
+  <div class="mode-toggle" role="group" aria-label="Modo de las fotos">
+    <button type="button" data-mode="auto" aria-pressed="true" data-i18n="modeAuto">Automático</button>
+    <button type="button" data-mode="manual" aria-pressed="false" data-i18n="modeManual">Manual</button>
+  </div>
+
+  <div class="lightbox" id="lightbox">
+    <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Cerrar">&times;</button>
+    <button type="button" class="lightbox-arrow lightbox-prev" id="lightbox-prev" aria-label="Anterior">‹</button>
+    <img id="lightbox-img" src="" alt="">
+    <button type="button" class="lightbox-arrow lightbox-next" id="lightbox-next" aria-label="Siguiente">›</button>
+  </div>
 
   <div class="merge-wrap" id="merge-wrap">
     <div class="cloud cloud-left"></div>
@@ -1185,6 +1331,27 @@
             </svg>
             <span data-i18n="likeWork">Trabajar (analista)</span>
           </div>
+          <div class="like-item">
+            <svg class="like-icon" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14,24 C8,24 6,30 7,38 C8,45 13,46 16,41 L20,36 L40,36 L44,41 C47,46 52,45 53,38 C54,30 52,24 46,24 Z" fill="var(--dusk)"/>
+              <circle cx="18" cy="32" r="1.6" fill="var(--paper)"/>
+              <line x1="15" y1="32" x2="21" y2="32" stroke="var(--paper)" stroke-width="1.6"/>
+              <line x1="18" y1="29" x2="18" y2="35" stroke="var(--paper)" stroke-width="1.6"/>
+              <circle cx="38" cy="30" r="1.8" fill="var(--ember)"/>
+              <circle cx="43" cy="34" r="1.8" fill="var(--dawnrose)"/>
+            </svg>
+            <span data-i18n="likeGames">Videojuegos</span>
+          </div>
+          <div class="like-item">
+            <svg class="like-icon" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12,24 C12,16 48,16 48,24 Z" fill="var(--dawngold)"/>
+              <rect x="12" y="24" width="36" height="4" fill="var(--sage)"/>
+              <rect x="12" y="29" width="36" height="6" rx="2" fill="var(--ember)"/>
+              <rect x="12" y="36" width="36" height="4" fill="#FFF9F1"/>
+              <path d="M12,41 L48,41 L45,48 L15,48 Z" fill="var(--dawnrose)"/>
+            </svg>
+            <span data-i18n="likeFood">Comer rico</span>
+          </div>
         </div>
       </div>
       <div class="likes-column">
@@ -1248,6 +1415,16 @@
             </svg>
             <span data-i18n="likeAnime">Ver anime</span>
             <small data-i18n="likeSharedNote">(los dos)</small>
+          </div>
+          <div class="like-item">
+            <svg class="like-icon" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22,32 L38,32 L31,54 C30.5,55.5 29.5,55.5 29,54 Z" fill="#E3B778"/>
+              <path d="M22,32 L38,32 L36,36 L24,36 Z" fill="#C99A5C"/>
+              <circle cx="26" cy="24" r="9" fill="#8A5A3B"/>
+              <circle cx="34" cy="24" r="9" fill="var(--dawnrose)"/>
+              <circle cx="30" cy="16" r="8" fill="#FFF9F1"/>
+            </svg>
+            <span data-i18n="likeIceCream">Helado de chocolate y fresa</span>
           </div>
         </div>
       </div>
@@ -1333,28 +1510,136 @@
   function initCarousel(wrapId, dotsId){
     const wrap = document.getElementById(wrapId);
     const dotsWrap = document.getElementById(dotsId);
-    if (!wrap) return;
+    if (!wrap) return null;
     const imgs = Array.from(wrap.querySelectorAll("img"));
     imgs.forEach((_, i) => {
       const dot = document.createElement("span");
       if (i === 0) dot.classList.add("active");
+      dot.addEventListener("click", () => goTo(i));
       dotsWrap.appendChild(dot);
     });
     const dots = Array.from(dotsWrap.children);
     let current = 0;
+    let timer = null;
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (imgs.length > 1 && !prefersReduced){
-      setInterval(() => {
-        imgs[current].classList.remove("active");
-        dots[current].classList.remove("active");
-        current = (current + 1) % imgs.length;
-        imgs[current].classList.add("active");
-        dots[current].classList.add("active");
-      }, 3200);
+
+    function render(){
+      imgs.forEach((img, i) => img.classList.toggle("active", i === current));
+      dots.forEach((d, i) => d.classList.toggle("active", i === current));
+      if (typeof onChange === "function") onChange();
     }
+
+    function goTo(i){
+      current = (i + imgs.length) % imgs.length;
+      render();
+    }
+
+    function next(){ goTo(current + 1); }
+    function prev(){ goTo(current - 1); }
+
+    function startAuto(){
+      stopAuto();
+      if (imgs.length > 1 && !prefersReduced){
+        timer = setInterval(next, 3200);
+      }
+    }
+    function stopAuto(){
+      if (timer) clearInterval(timer);
+      timer = null;
+    }
+
+    let onChange = null;
+
+    startAuto();
+
+    return {
+      next, prev, goTo, startAuto, stopAuto,
+      getCurrentSrc: () => imgs[current].src,
+      setOnChange: (fn) => { onChange = fn; }
+    };
   }
-  initCarousel("carousel-him", "dots-him");
-  initCarousel("carousel-her", "dots-her");
+
+  const carouselHim = initCarousel("carousel-him", "dots-him");
+  const carouselHer = initCarousel("carousel-her", "dots-her");
+  const carousels = { him: carouselHim, her: carouselHer };
+
+  // Interruptor Automático / Manual
+  document.querySelectorAll(".mode-toggle button").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const mode = btn.getAttribute("data-mode");
+      document.querySelectorAll(".mode-toggle button").forEach((b) => {
+        b.setAttribute("aria-pressed", b === btn ? "true" : "false");
+      });
+      document.body.classList.toggle("manual-mode", mode === "manual");
+      Object.values(carousels).forEach((c) => {
+        if (!c) return;
+        if (mode === "manual") c.stopAuto(); else c.startAuto();
+      });
+    });
+  });
+
+  // Flechas prev/next dentro de cada polaroid
+  document.querySelectorAll(".carousel-nav").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const target = carousels[btn.getAttribute("data-target")];
+      if (!target) return;
+      if (btn.classList.contains("prev")) target.prev(); else target.next();
+    });
+  });
+
+  // Lightbox de pantalla completa
+  (function initLightbox(){
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const closeBtn = document.getElementById("lightbox-close");
+    const prevBtn = document.getElementById("lightbox-prev");
+    const nextBtn = document.getElementById("lightbox-next");
+    if (!lightbox) return;
+
+    let activeKey = null;
+
+    function updateImg(){
+      const c = carousels[activeKey];
+      if (c) lightboxImg.src = c.getCurrentSrc();
+    }
+
+    function open(key){
+      activeKey = key;
+      const c = carousels[key];
+      if (!c) return;
+      c.setOnChange(updateImg);
+      updateImg();
+      lightbox.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function close(){
+      lightbox.classList.remove("open");
+      document.body.style.overflow = "";
+      if (activeKey) carousels[activeKey].setOnChange(null);
+      activeKey = null;
+    }
+
+    document.querySelectorAll(".expand-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        open(btn.getAttribute("data-target"));
+      });
+    });
+
+    closeBtn.addEventListener("click", close);
+    lightbox.addEventListener("click", (e) => { if (e.target === lightbox) close(); });
+    prevBtn.addEventListener("click", () => { if (activeKey) carousels[activeKey].prev(); });
+    nextBtn.addEventListener("click", () => { if (activeKey) carousels[activeKey].next(); });
+
+    document.addEventListener("keydown", (e) => {
+      if (!lightbox.classList.contains("open")) return;
+      if (e.key === "Escape") close();
+      if (e.key === "ArrowLeft" && activeKey) carousels[activeKey].prev();
+      if (e.key === "ArrowRight" && activeKey) carousels[activeKey].next();
+    });
+  })();
 
   // Reproductor de audio (Sincerely - Kevin MacLeod)
   (function initPlayer(){
@@ -1411,6 +1696,11 @@
       likeMusic: "Mendengarkan musik",
       likeAnime: "Nonton anime",
       likeWork: "Bekerja (analis)",
+      likeGames: "Main game",
+      likeFood: "Makan enak",
+      likeIceCream: "Es krim cokelat dan stroberi",
+      modeAuto: "Otomatis",
+      modeManual: "Manual",
       likeFlowers: "Bunga",
       likeReading: "Membaca",
       songLabel: "Sebuah lagu untukmu",
@@ -1472,6 +1762,11 @@
       likeMusic: "Listening to music",
       likeAnime: "Watching anime",
       likeWork: "Working (analyst)",
+      likeGames: "Playing video games",
+      likeFood: "Eating good food",
+      likeIceCream: "Chocolate and strawberry ice cream",
+      modeAuto: "Automatic",
+      modeManual: "Manual",
       likeFlowers: "Flowers",
       likeReading: "Reading",
       songLabel: "A song for you",
@@ -1534,6 +1829,11 @@
       likeMusic: "Escuchar música",
       likeAnime: "Ver anime",
       likeWork: "Trabajar (analista)",
+      likeGames: "Jugar videojuegos",
+      likeFood: "Comer comida deliciosa",
+      likeIceCream: "Helado de chocolate y fresa",
+      modeAuto: "Automático",
+      modeManual: "Manual",
       likeFlowers: "Flores",
       likeReading: "Leer",
       songLabel: "Una canción para ti",
@@ -1720,9 +2020,9 @@
         return;
       }
 
-      const soloHer = 2800;   // tiempo que el mensaje de ella está solo antes de que él responda
-      const bothHold = 3200;  // tiempo que ambos mensajes se quedan juntos en pantalla
-      const clearGap = 600;   // pausa breve tras limpiar, antes del siguiente par
+      const soloHer = 2100;   // tiempo que el mensaje de ella está solo antes de que él responda
+      const bothHold = 2400;  // tiempo que ambos mensajes se quedan juntos en pantalla
+      const clearGap = 450;   // pausa breve tras limpiar, antes del siguiente par
 
       for (let i = 0; i < pairs.length; i++){
         const [herKey, himKey] = pairs[i];
@@ -1741,30 +2041,23 @@
 
       cloudLeft.classList.add("animate");
       cloudRight.classList.add("animate");
-      await wait(1400);
+      await wait(1100);
 
       merged.textContent = t("chatMerged");
       void merged.offsetWidth;
       merged.classList.add("visible");
-      await wait(4500);
+      await wait(3800);
 
       merged.classList.remove("visible");
       resetCloud(cloudLeft);
       resetCloud(cloudRight);
-      await wait(900);
+      await wait(700);
 
       play(); // vuelve a empezar el ciclo
     }
 
-    const chatObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting){
-          setTimeout(play, 250); // pequeña pausa para asegurar que el layout ya esté listo
-          chatObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
-    chatObserver.observe(photoSection);
+    // Arranca con un temporizador simple al cargar, sin depender de detectar scroll
+    setTimeout(play, 900);
   })();
 </script>
 
