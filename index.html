@@ -226,6 +226,39 @@
     text-align:center;
   }
 
+  .greeting-header{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:0.35rem;
+    margin-bottom:0.7rem;
+  }
+
+  .greeting-icon{
+    display:none;
+    width:42px;
+    height:42px;
+    flex-shrink:0;
+  }
+
+  .greeting-icon.active{ display:inline-block; }
+
+  .greeting-icon.icon-morning{ animation:pulse-glow 3.4s ease-in-out infinite; }
+  .greeting-icon.icon-afternoon{ animation:pulse-glow 2.6s ease-in-out infinite; }
+  .greeting-icon.icon-night .twinkle{ animation:twinkle 2.2s ease-in-out infinite; }
+  .greeting-icon.icon-night .twinkle:nth-child(3){ animation-delay:0.6s; }
+
+  @keyframes pulse-glow{
+    0%, 100%{ transform:scale(1); opacity:1; }
+    50%{ transform:scale(1.08); opacity:0.9; }
+  }
+
+  @keyframes twinkle{
+    0%, 100%{ opacity:1; transform:scale(1); }
+    50%{ opacity:0.4; transform:scale(0.7); }
+  }
+
   .greeting-title{
     font-family:'Newsreader', serif;
     font-style:italic;
@@ -233,7 +266,12 @@
     font-size:clamp(1.4rem, 4vw, 1.8rem);
     color:var(--dusk);
     margin-bottom:0.7rem;
+    transition:color 0.4s ease;
   }
+
+  .greeting-title.is-morning{ color:#D98A3D; }
+  .greeting-title.is-afternoon{ color:var(--ember); }
+  .greeting-title.is-night{ color:var(--dusk); }
 
   .greeting-note{
     font-family:'Work Sans', sans-serif;
@@ -241,6 +279,10 @@
     line-height:1.6;
     color:var(--ink);
     opacity:0.85;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .greeting-icon, .greeting-icon .twinkle{ animation:none; }
   }
 
   /* ---------- PHOTO ---------- */
@@ -698,6 +740,16 @@
 
   .likes-column{ flex:1 1 220px; max-width:260px; }
 
+  /* En pantallas angostas (apiladas), Amelia va primero */
+  .likes-column:nth-child(1){ order:2; } /* Elías */
+  .likes-column:nth-child(2){ order:1; } /* Amelia */
+
+  /* En pantallas anchas, lado a lado con Elías a la izquierda */
+  @media (min-width:640px){
+    .likes-column:nth-child(1){ order:1; }
+    .likes-column:nth-child(2){ order:2; }
+  }
+
   .likes-name{
     font-family:'Newsreader', serif;
     font-style:italic;
@@ -810,7 +862,38 @@
   </section>
 
   <section class="greeting-section">
-    <p class="greeting-title" id="greeting-title">&nbsp;</p>
+    <div class="greeting-header">
+      <svg class="greeting-icon icon-morning" id="icon-morning" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="30" cy="34" r="12" fill="var(--dawngold)"/>
+        <g stroke="var(--dawngold)" stroke-width="2.4" stroke-linecap="round">
+          <line x1="30" y1="12" x2="30" y2="18"/>
+          <line x1="12" y1="34" x2="18" y2="34"/>
+          <line x1="42" y1="34" x2="48" y2="34"/>
+          <line x1="16.5" y1="20.5" x2="20.5" y2="24.5"/>
+          <line x1="43.5" y1="20.5" x2="39.5" y2="24.5"/>
+        </g>
+      </svg>
+      <svg class="greeting-icon icon-afternoon" id="icon-afternoon" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="30" cy="30" r="13" fill="var(--ember)"/>
+        <g stroke="var(--ember)" stroke-width="2.6" stroke-linecap="round">
+          <line x1="30" y1="6" x2="30" y2="13"/>
+          <line x1="30" y1="47" x2="30" y2="54"/>
+          <line x1="6" y1="30" x2="13" y2="30"/>
+          <line x1="47" y1="30" x2="54" y2="30"/>
+          <line x1="12" y1="12" x2="17" y2="17"/>
+          <line x1="43" y1="43" x2="48" y2="48"/>
+          <line x1="12" y1="48" x2="17" y2="43"/>
+          <line x1="43" y1="17" x2="48" y2="12"/>
+        </g>
+      </svg>
+      <svg class="greeting-icon icon-night" id="icon-night" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="30" cy="30" r="14" fill="var(--dusk)"/>
+        <circle cx="37" cy="23" r="12" fill="var(--paper)"/>
+        <path class="twinkle" d="M48,14 L49.4,17.6 L53,19 L49.4,20.4 L48,24 L46.6,20.4 L43,19 L46.6,17.6 Z" fill="var(--dawngold)"/>
+        <path class="twinkle" d="M14,40 L15,42.4 L17.4,43.4 L15,44.4 L14,46.8 L13,44.4 L10.6,43.4 L13,42.4 Z" fill="var(--dawngold)"/>
+      </svg>
+      <p class="greeting-title" id="greeting-title">&nbsp;</p>
+    </div>
     <p class="greeting-note" id="greeting-note">&nbsp;</p>
   </section>
 
@@ -1376,16 +1459,24 @@
     const dict = translations[currentLang];
     if (!dict) return;
     const hour = new Date().getHours();
-    let titleKey, noteKey;
+    let titleKey, noteKey, band;
     if (hour >= 5 && hour < 12){
-      titleKey = "greetMorningTitle"; noteKey = "greetMorningNote";
+      titleKey = "greetMorningTitle"; noteKey = "greetMorningNote"; band = "morning";
     } else if (hour >= 12 && hour < 18){
-      titleKey = "greetAfternoonTitle"; noteKey = "greetAfternoonNote";
+      titleKey = "greetAfternoonTitle"; noteKey = "greetAfternoonNote"; band = "afternoon";
     } else {
-      titleKey = "greetNightTitle"; noteKey = "greetNightNote";
+      titleKey = "greetNightTitle"; noteKey = "greetNightNote"; band = "night";
     }
     document.getElementById("greeting-title").textContent = dict[titleKey];
     document.getElementById("greeting-note").textContent = dict[noteKey];
+
+    const title = document.getElementById("greeting-title");
+    title.classList.remove("is-morning", "is-afternoon", "is-night");
+    title.classList.add(`is-${band}`);
+
+    document.querySelectorAll(".greeting-icon").forEach((icon) => icon.classList.remove("active"));
+    const activeIcon = document.getElementById(`icon-${band}`);
+    if (activeIcon) activeIcon.classList.add("active");
   }
 
   function daysUntilNextBirthday(month, day){
