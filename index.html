@@ -2014,46 +2014,56 @@
     }
 
     async function play(){
-      if (prefersReduced){
+      try {
+        if (prefersReduced){
+          merged.textContent = t("chatMerged");
+          merged.classList.add("visible");
+          return;
+        }
+
+        const soloHer = 2100;   // tiempo que el mensaje de ella está solo antes de que él responda
+        const bothHold = 2400;  // tiempo que ambos mensajes se quedan juntos en pantalla
+        const clearGap = 450;   // pausa breve tras limpiar, antes del siguiente par
+
+        for (let i = 0; i < pairs.length; i++){
+          const [herKey, himKey] = pairs[i];
+
+          show(bubbleHer, herKey);
+          await wait(soloHer);
+
+          show(bubbleHim, himKey);
+          await wait(bothHold);
+
+          // recién ahora desaparecen los dos, justo antes de mostrar el siguiente par
+          bubbleHer.classList.remove("visible");
+          bubbleHim.classList.remove("visible");
+          await wait(clearGap);
+        }
+
+        cloudLeft.classList.add("animate");
+        cloudRight.classList.add("animate");
+        await wait(1100);
+
         merged.textContent = t("chatMerged");
+        void merged.offsetWidth;
         merged.classList.add("visible");
-        return;
+        await wait(3800);
+
+        merged.classList.remove("visible");
+        resetCloud(cloudLeft);
+        resetCloud(cloudRight);
+        await wait(700);
+
+        play(); // vuelve a empezar el ciclo
+      } catch (err){
+        // Si algo falla, lo mostramos directo en pantalla para poder diagnosticarlo
+        bubbleHer.textContent = "ERROR: " + err.message;
+        bubbleHer.style.opacity = "1";
+        bubbleHer.style.transform = "translate(-50%, 0) scale(1)";
+        bubbleHer.style.background = "#ffe14d";
+        bubbleHer.style.color = "#1A1025";
+        bubbleHer.style.zIndex = "999";
       }
-
-      const soloHer = 2100;   // tiempo que el mensaje de ella está solo antes de que él responda
-      const bothHold = 2400;  // tiempo que ambos mensajes se quedan juntos en pantalla
-      const clearGap = 450;   // pausa breve tras limpiar, antes del siguiente par
-
-      for (let i = 0; i < pairs.length; i++){
-        const [herKey, himKey] = pairs[i];
-
-        show(bubbleHer, herKey);
-        await wait(soloHer);
-
-        show(bubbleHim, himKey);
-        await wait(bothHold);
-
-        // recién ahora desaparecen los dos, justo antes de mostrar el siguiente par
-        bubbleHer.classList.remove("visible");
-        bubbleHim.classList.remove("visible");
-        await wait(clearGap);
-      }
-
-      cloudLeft.classList.add("animate");
-      cloudRight.classList.add("animate");
-      await wait(1100);
-
-      merged.textContent = t("chatMerged");
-      void merged.offsetWidth;
-      merged.classList.add("visible");
-      await wait(3800);
-
-      merged.classList.remove("visible");
-      resetCloud(cloudLeft);
-      resetCloud(cloudRight);
-      await wait(700);
-
-      play(); // vuelve a empezar el ciclo
     }
 
     // Arranca con un temporizador simple al cargar, sin depender de detectar scroll
