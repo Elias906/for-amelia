@@ -713,6 +713,93 @@
     .birthday-flame{ animation:none; }
   }
 
+  /* ---------- SONG PLAYER ---------- */
+  .song-section{
+    padding:1rem 6vw 5rem;
+    text-align:center;
+    max-width:460px;
+    margin:0 auto;
+  }
+
+  .song-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.24em;
+    text-transform:uppercase;
+    color:var(--dusk);
+    opacity:0.7;
+    margin-bottom:1.4rem;
+  }
+
+  .player-card{
+    display:flex;
+    align-items:center;
+    gap:1rem;
+    padding:1.1rem 1.3rem;
+    border-radius:20px;
+    background:linear-gradient(120deg, var(--dusk), var(--ember));
+    box-shadow:0 20px 40px -16px rgba(59,31,77,0.4);
+    border:none;
+    cursor:pointer;
+    width:100%;
+    text-align:left;
+    transition:transform 0.2s ease;
+  }
+
+  .player-card:hover{ transform:translateY(-2px); }
+
+  .vinyl{
+    width:54px;
+    height:54px;
+    flex-shrink:0;
+  }
+
+  .vinyl.spinning{ animation:spin 6s linear infinite; }
+
+  .player-info{
+    flex:1;
+    text-align:left;
+    min-width:0;
+  }
+
+  .player-title{
+    font-family:'Newsreader', serif;
+    font-style:italic;
+    font-size:1.08rem;
+    color:#FFF9F1;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  .player-artist{
+    font-family:'Work Sans', sans-serif;
+    font-size:0.8rem;
+    color:#FFF9F1;
+    opacity:0.8;
+  }
+
+  .play-badge{
+    width:34px;
+    height:34px;
+    flex-shrink:0;
+  }
+
+  @keyframes spin{ from{ transform:rotate(0deg); } to{ transform:rotate(360deg); } }
+
+  .song-hint{
+    margin-top:0.8rem;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.05em;
+    color:var(--dusk);
+    opacity:0.6;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .vinyl.spinning{ animation:none; }
+  }
+
   /* ---------- LIKES ---------- */
   .likes-section{
     padding:1rem 6vw 5rem;
@@ -1119,15 +1206,14 @@
           </div>
           <div class="like-item">
             <svg class="like-icon" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-              <rect x="10" y="10" width="40" height="28" rx="3" fill="none" stroke="var(--dusk)" stroke-width="2.4"/>
-              <path d="M17,32 L24,20 L30,27 L36,16 L43,32 Z" fill="var(--dawnrose)"/>
-              <circle cx="18" cy="17" r="3" fill="var(--dawngold)"/>
-              <line x1="14" y1="46" x2="46" y2="46" stroke="var(--dusk)" stroke-width="2" stroke-linecap="round"/>
-              <circle cx="24" cy="46" r="3" fill="var(--ember)"/>
-              <line x1="14" y1="52" x2="46" y2="52" stroke="var(--dusk)" stroke-width="2" stroke-linecap="round"/>
-              <circle cx="36" cy="52" r="3" fill="var(--ember)"/>
+              <path d="M30,16 C26,12 16,10 10,12 L10,44 C16,42 26,44 30,48 C34,44 44,42 50,44 L50,12 C44,10 34,12 30,16 Z" fill="var(--paper)" stroke="var(--dusk)" stroke-width="2.2"/>
+              <line x1="30" y1="16" x2="30" y2="48" stroke="var(--dusk)" stroke-width="2.2"/>
+              <path d="M14,18 C18,17 23,17 27,20" fill="none" stroke="var(--ember)" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M14,25 C18,24 23,24 27,27" fill="none" stroke="var(--ember)" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M33,20 C37,17 42,17 46,18" fill="none" stroke="var(--dawnrose)" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M33,27 C37,24 42,24 46,25" fill="none" stroke="var(--dawnrose)" stroke-width="1.6" stroke-linecap="round"/>
             </svg>
-            <span data-i18n="likeEditing">Edición</span>
+            <span data-i18n="likeReading">Leer</span>
           </div>
           <div class="like-item">
             <svg class="like-icon" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
@@ -1166,6 +1252,32 @@
         </div>
       </div>
     </div>
+  </section>
+
+  <section class="song-section">
+    <p class="song-label" data-i18n="songLabel">Una canción para ti</p>
+    <button type="button" class="player-card" id="audio-toggle" aria-label="Reproducir / Pausar">
+      <svg class="vinyl" id="vinyl-icon" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="30" cy="30" r="26" fill="var(--ink)"/>
+        <circle cx="30" cy="30" r="18" fill="none" stroke="#3B1F4D" stroke-width="1" opacity="0.6"/>
+        <circle cx="30" cy="30" r="10" fill="var(--dawngold)"/>
+        <circle cx="30" cy="30" r="3" fill="var(--ink)"/>
+      </svg>
+      <div class="player-info">
+        <p class="player-title">Sincerely</p>
+        <p class="player-artist">Kevin MacLeod</p>
+      </div>
+      <svg class="play-badge" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="12" fill="var(--dawngold)"/>
+        <path id="icon-play" d="M9,7 L18,12 L9,17 Z" fill="var(--ink)"/>
+        <g id="icon-pause" style="display:none;">
+          <rect x="8" y="7" width="3" height="10" fill="var(--ink)"/>
+          <rect x="13" y="7" width="3" height="10" fill="var(--ink)"/>
+        </g>
+      </svg>
+    </button>
+    <audio id="song-audio" src="sincerely.mp3" preload="none" loop></audio>
+    <p class="song-hint" data-i18n="songListen">Toca para reproducir</p>
   </section>
 
   <footer>
@@ -1244,6 +1356,34 @@
   initCarousel("carousel-him", "dots-him");
   initCarousel("carousel-her", "dots-her");
 
+  // Reproductor de audio (Sincerely - Kevin MacLeod)
+  (function initPlayer(){
+    const audio = document.getElementById("song-audio");
+    const toggleBtn = document.getElementById("audio-toggle");
+    const vinyl = document.getElementById("vinyl-icon");
+    const iconPlay = document.getElementById("icon-play");
+    const iconPause = document.getElementById("icon-pause");
+    if (!audio || !toggleBtn) return;
+
+    function setPlayingUI(isPlaying){
+      vinyl.classList.toggle("spinning", isPlaying);
+      iconPlay.style.display = isPlaying ? "none" : "block";
+      iconPause.style.display = isPlaying ? "block" : "none";
+    }
+
+    toggleBtn.addEventListener("click", () => {
+      if (audio.paused){
+        audio.play().catch(() => {});
+      } else {
+        audio.pause();
+      }
+    });
+
+    audio.addEventListener("play", () => setPlayingUI(true));
+    audio.addEventListener("pause", () => setPlayingUI(false));
+    audio.addEventListener("ended", () => setPlayingUI(false));
+  })();
+
   const translations = {
     id: {
       title: "Untuk Amelia",
@@ -1272,7 +1412,9 @@
       likeAnime: "Nonton anime",
       likeWork: "Bekerja (analis)",
       likeFlowers: "Bunga",
-      likeEditing: "Editing",
+      likeReading: "Membaca",
+      songLabel: "Sebuah lagu untukmu",
+      songListen: "Tap untuk memutar",
       likeMakeup: "Makeup",
       likeNature: "Alam",
       likeBaking: "Membuat kue",
@@ -1331,7 +1473,9 @@
       likeAnime: "Watching anime",
       likeWork: "Working (analyst)",
       likeFlowers: "Flowers",
-      likeEditing: "Editing",
+      likeReading: "Reading",
+      songLabel: "A song for you",
+      songListen: "Tap to play",
       likeMakeup: "Makeup",
       likeNature: "Nature",
       likeBaking: "Baking cakes",
@@ -1391,7 +1535,9 @@
       likeAnime: "Ver anime",
       likeWork: "Trabajar (analista)",
       likeFlowers: "Flores",
-      likeEditing: "Edición",
+      likeReading: "Leer",
+      songLabel: "Una canción para ti",
+      songListen: "Toca para reproducir",
       likeMakeup: "Maquillaje",
       likeNature: "Naturaleza",
       likeBaking: "Hacer pasteles",
@@ -1561,6 +1707,12 @@
       void cloud.offsetWidth; // fuerza reflow para poder repetir la animación
     }
 
+    function show(el, key){
+      el.textContent = t(key);
+      void el.offsetWidth; // fuerza reflow para que la transición siempre se dispare, incluso en el primer mensaje
+      el.classList.add("visible");
+    }
+
     async function play(){
       if (prefersReduced){
         merged.textContent = t("chatMerged");
@@ -1568,19 +1720,17 @@
         return;
       }
 
-      const soloHer = 1700;   // tiempo que el mensaje de ella está solo antes de que él responda
-      const bothHold = 2400;  // tiempo que ambos mensajes se quedan juntos en pantalla
-      const clearGap = 500;   // pausa breve tras limpiar, antes del siguiente par
+      const soloHer = 2800;   // tiempo que el mensaje de ella está solo antes de que él responda
+      const bothHold = 3200;  // tiempo que ambos mensajes se quedan juntos en pantalla
+      const clearGap = 600;   // pausa breve tras limpiar, antes del siguiente par
 
       for (let i = 0; i < pairs.length; i++){
         const [herKey, himKey] = pairs[i];
 
-        bubbleHer.textContent = t(herKey);
-        bubbleHer.classList.add("visible");
+        show(bubbleHer, herKey);
         await wait(soloHer);
 
-        bubbleHim.textContent = t(himKey);
-        bubbleHim.classList.add("visible");
+        show(bubbleHim, himKey);
         await wait(bothHold);
 
         // recién ahora desaparecen los dos, justo antes de mostrar el siguiente par
@@ -1594,6 +1744,7 @@
       await wait(1400);
 
       merged.textContent = t("chatMerged");
+      void merged.offsetWidth;
       merged.classList.add("visible");
       await wait(4500);
 
@@ -1608,11 +1759,11 @@
     const chatObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting){
-          play();
+          setTimeout(play, 250); // pequeña pausa para asegurar que el layout ya esté listo
           chatObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.4 });
+    }, { threshold: 0.15 });
     chatObserver.observe(photoSection);
   })();
 </script>
