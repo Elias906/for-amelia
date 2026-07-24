@@ -1709,6 +1709,7 @@
       likeNature: "Alam",
       likeBaking: "Membuat kue",
       likeSharedNote: "(kita berdua)",
+      chatHer1: "kamu manis banget",
       chatHim1: "kamu jauh lebih manis dari itu",
       chatHer2: "kamu bikin aku bahagia",
       chatHim2: "aku lebih bahagia lagi karena kamu bahagia",
@@ -2066,8 +2067,16 @@
       }
     }
 
-    // Arranca con un temporizador simple al cargar, sin depender de detectar scroll
-    setTimeout(play, 900);
+    // Arranca cuando la sección de fotos entra en pantalla al hacer scroll
+    const chatObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting){
+          setTimeout(play, 300);
+          chatObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    chatObserver.observe(photoSection);
   })();
 </script>
 
