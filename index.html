@@ -838,6 +838,33 @@
     margin-top:0.1rem;
   }
 
+  /* Fotos de niños dentro de cumpleaños */
+  .kid-photos{
+    margin-top:3rem;
+  }
+
+  .kid-photos-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.7rem;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--dusk);
+    opacity:0.55;
+    margin-bottom:1.6rem;
+  }
+
+  .kid-photos-row{
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+    gap:1.4rem;
+    flex-wrap:wrap;
+  }
+
+  .polaroid.small{
+    max-width:160px;
+  }
+
   @media (prefers-reduced-motion: reduce){
     .birthday-flame{ animation:none; }
   }
@@ -1138,8 +1165,6 @@
           <img src="elias6.jpg" alt="Elías">
           <img src="elias7.jpg" alt="Elías">
           <img src="elias8.jpg" alt="Elías">
-          <img src="elias9.jpg" alt="Elías">
-          <img src="elias10.jpg" alt="Elías">
           <button type="button" class="carousel-nav prev" data-target="him" aria-label="Anterior">‹</button>
           <button type="button" class="carousel-nav next" data-target="him" aria-label="Siguiente">›</button>
           <button type="button" class="expand-btn" data-target="him" aria-label="Ver en pantalla completa">
@@ -1158,11 +1183,6 @@
           <img src="amelia2.jpg" alt="Amelia">
           <img src="amelia3.jpg" alt="Amelia">
           <img src="amelia4.jpg" alt="Amelia">
-          <img src="amelia5.jpg" alt="Amelia">
-          <img src="amelia6.jpg" alt="Amelia">
-          <img src="amelia7.jpg" alt="Amelia">
-          <img src="amelia8.jpg" alt="Amelia">
-          <img src="amelia9.jpg" alt="Amelia">
           <button type="button" class="carousel-nav prev" data-target="her" aria-label="Anterior">‹</button>
           <button type="button" class="carousel-nav next" data-target="her" aria-label="Siguiente">›</button>
           <button type="button" class="expand-btn" data-target="her" aria-label="Ver en pantalla completa">
@@ -1237,6 +1257,44 @@
         <p class="birthday-name">Amelia</p>
         <p class="birthday-date" data-i18n="birthdayAmelia">22 de marzo</p>
         <p class="birthday-countdown" id="countdown-amelia">—</p>
+      </div>
+    </div>
+
+    <div class="kid-photos">
+      <p class="kid-photos-label" data-i18n="kidPhotosLabel">Cuando éramos niños</p>
+      <div class="kid-photos-row">
+        <div class="portrait-group">
+          <figure class="polaroid small him">
+            <div class="carousel" id="carousel-eliaskid">
+              <img src="elias-kid1.jpg" alt="Elías de niño" class="active">
+              <img src="elias-kid2.jpg" alt="Elías de niño">
+              <img src="elias-kid3.jpg" alt="Elías de niño">
+              <button type="button" class="carousel-nav prev" data-target="eliaskid" aria-label="Anterior">‹</button>
+              <button type="button" class="carousel-nav next" data-target="eliaskid" aria-label="Siguiente">›</button>
+              <button type="button" class="expand-btn" data-target="eliaskid" aria-label="Ver en pantalla completa">
+                <svg viewBox="0 0 24 24"><path d="M4,10 L4,4 L10,4 M14,4 L20,4 L20,10 M20,14 L20,20 L14,20 M10,20 L4,20 L4,14" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+            <div class="carousel-dots" id="dots-eliaskid" aria-hidden="true"></div>
+            <figcaption data-i18n="kidCaptionElias">Elías, de pequeño</figcaption>
+          </figure>
+        </div>
+        <div class="portrait-group">
+          <figure class="polaroid small her">
+            <div class="carousel" id="carousel-ameliakid">
+              <img src="amelia-kid1.jpg" alt="Amelia de niña" class="active">
+              <img src="amelia-kid2.jpg" alt="Amelia de niña">
+              <img src="amelia-kid3.jpg" alt="Amelia de niña">
+              <button type="button" class="carousel-nav prev" data-target="ameliakid" aria-label="Anterior">‹</button>
+              <button type="button" class="carousel-nav next" data-target="ameliakid" aria-label="Siguiente">›</button>
+              <button type="button" class="expand-btn" data-target="ameliakid" aria-label="Ver en pantalla completa">
+                <svg viewBox="0 0 24 24"><path d="M4,10 L4,4 L10,4 M14,4 L20,4 L20,10 M20,14 L20,20 L14,20 M10,20 L4,20 L4,14" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+            <div class="carousel-dots" id="dots-ameliakid" aria-hidden="true"></div>
+            <figcaption data-i18n="kidCaptionAmelia">Amelia, de pequeña</figcaption>
+          </figure>
+        </div>
       </div>
     </div>
   </section>
@@ -1573,7 +1631,9 @@
 
   const carouselHim = initCarousel("carousel-him", "dots-him");
   const carouselHer = initCarousel("carousel-her", "dots-her");
-  const carousels = { him: carouselHim, her: carouselHer };
+  const carouselEliasKid = initCarousel("carousel-eliaskid", "dots-eliaskid");
+  const carouselAmeliaKid = initCarousel("carousel-ameliakid", "dots-ameliakid");
+  const carousels = { him: carouselHim, her: carouselHer, eliaskid: carouselEliasKid, ameliakid: carouselAmeliaKid };
 
   // Interruptor Automático / Manual
   document.querySelectorAll(".mode-toggle button").forEach((btn) => {
@@ -1704,6 +1764,9 @@
       birthdayAmelia: "22 Maret",
       countdownDays: "hari lagi",
       countdownToday: "Hari ini!",
+      kidPhotosLabel: "Waktu kami masih kecil",
+      kidCaptionElias: "Elías, waktu kecil",
+      kidCaptionAmelia: "Amelia, waktu kecil",
       likePiano: "Piano",
       likeMusic: "Mendengarkan musik",
       likeAnime: "Nonton anime",
@@ -1771,6 +1834,9 @@
       birthdayAmelia: "March 22nd",
       countdownDays: "days to go",
       countdownToday: "Today!",
+      kidPhotosLabel: "When we were kids",
+      kidCaptionElias: "Elías, as a kid",
+      kidCaptionAmelia: "Amelia, as a kid",
       likePiano: "Piano",
       likeMusic: "Listening to music",
       likeAnime: "Watching anime",
@@ -1838,6 +1904,9 @@
       birthdayAmelia: "22 de marzo",
       countdownDays: "días para el suyo",
       countdownToday: "¡Hoy!",
+      kidPhotosLabel: "Cuando éramos niños",
+      kidCaptionElias: "Elías, de pequeño",
+      kidCaptionAmelia: "Amelia, de pequeña",
       likePiano: "Piano",
       likeMusic: "Escuchar música",
       likeAnime: "Ver anime",
